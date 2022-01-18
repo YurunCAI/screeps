@@ -13,15 +13,15 @@ var roleHarvester = {
         if(!creep.memory.building && creep.store.getFreeCapacity() == 0){
             creep.memory.building = true;
         }
-        //transfer energy to spawn and extension
+        //transfer energy to Sturcture
         if(creep.memory.building){
-            var targets = creep.room.find(FIND_STRUCTURES, {
+            var targets = creep.room.find(FIND_STRUCTURES, {//Spawn and Extension
                 filter: (structure) => {
                     return (structure.structureType == STRUCTURE_EXTENSION || structure.structureType == STRUCTURE_SPAWN)&&
                         structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0;
                 }
             });
-            var secondTargets = creep.room.find(FIND_STRUCTURES, {
+            var secondTargets = creep.room.find(FIND_STRUCTURES, {//Tower And Container
                 filter: (structure) => {
                     return (structure.structureType == STRUCTURE_CONTAINER || structure.structureType == STRUCTURE_TOWER) &&
                         structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0;

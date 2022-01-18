@@ -16,7 +16,7 @@ module.exports.loop = function(){
     //Creeps setting
     const numOfHarvester = 3;
     //const bodyOfHarvester = []; //wrong format
-    const numOfUpgrader = 3;
+    const numOfUpgrader = 4;
     const numOfBuilder = 2;
 
     //-----------------------------Single Tower Control-----------------------------

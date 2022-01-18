@@ -20,13 +20,12 @@ var roleBuilder = {
                     creep.moveTo(targets[0], { visualizePathStyle: { stroke: '#ffffff' } });
                 }
             }else{
-                console.log('repairing');
                 this.repairAll(creep);
             }
         } else { //builder walking to harvest
-            var sources = creep.room.find(FIND_SOURCES);
-            if (creep.harvest(sources[1]) == ERR_NOT_IN_RANGE) {
-                creep.moveTo(sources[1], { visualizePathStyle: { stroke: '#ffaa00' } });
+            var sources = creep.pos.findClosestByRange(FIND_SOURCES);
+            if (creep.harvest(sources[0]) == ERR_NOT_IN_RANGE) {
+                creep.moveTo(sources[0], { visualizePathStyle: { stroke: '#ffaa00' } });
             }
         }
     },
@@ -37,7 +36,7 @@ var roleBuilder = {
                 return ((structure.hits < 5000));
             }
         });
-        console.log(targets.length);
+        console.log('Builders Repairing Queue: '+targets.length);
         if(targets.length){
             
             if(creep.repair(targets[0]) == ERR_NOT_IN_RANGE){
