@@ -14,11 +14,17 @@ module.exports.loop = function(){
     }
 
     //Creeps setting
-    const numOfHarvester = 2;
-    //const bodyOfHarvester = '[WORK, CARRY, CARRY, MOVE, MOVE]'; //wrong format
-    const numOfUpgrader = 4;
+    const numOfHarvester = 3;
+    //const bodyOfHarvester = []; //wrong format
+    const numOfUpgrader = 3;
     const numOfBuilder = 2;
 
+    //-----------------------------Single Tower Control-----------------------------
+    var tower = Game.getObjectById('');
+    if(tower){
+        var closestHostile = tower.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
+        if(closestHostile) tower.attack(closestHostile);
+    }
 
     //-----------------------------call running role--------------------------------
     for(var name in Game.creeps){
@@ -47,7 +53,7 @@ module.exports.loop = function(){
     if (upgraders.length < numOfUpgrader && harvesters.length >= numOfHarvester) {
         var newName = 'Upgrader' + Game.time;
         console.log('Spawning new upgrader: ' + newName);
-        Game.spawns['Spawn1'].spawnCreep([WORK, WORK, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE], newName, { memory: { role: 'upgrader' } });
+        Game.spawns['Spawn1'].spawnCreep([WORK, WORK, CARRY, CARRY, MOVE, MOVE], newName, { memory: { role: 'upgrader' } });
     }
 
     //spawn new builder
@@ -57,6 +63,6 @@ module.exports.loop = function(){
     if (builders.length < numOfBuilder && upgraders.length >= numOfUpgrader) {
         var newName = 'Builder' + Game.time;
         console.log('Spawning new builder: ' + newName);
-        Game.spawns['Spawn1'].spawnCreep([WORK, WORK, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE], newName, { memory: { role: 'builder' } });
+        Game.spawns['Spawn1'].spawnCreep([WORK, WORK, CARRY, CARRY, MOVE, MOVE], newName, { memory: { role: 'builder' } });
     }
 }

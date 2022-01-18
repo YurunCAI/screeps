@@ -17,13 +17,23 @@ var roleHarvester = {
         if(creep.memory.building){
             var targets = creep.room.find(FIND_STRUCTURES, {
                 filter: (structure) => {
-                    return (structure.structureType == STRUCTURE_EXTENSION || structure.structureType == STRUCTURE_SPAWN) &&
+                    return (structure.structureType == STRUCTURE_EXTENSION || structure.structureType == STRUCTURE_SPAWN)&&
+                        structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0;
+                }
+            });
+            var secondTargets = creep.room.find(FIND_STRUCTURES, {
+                filter: (structure) => {
+                    return (structure.structureType == STRUCTURE_CONTAINER || structure.structureType == STRUCTURE_TOWER) &&
                         structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0;
                 }
             });
             if (targets.length > 0) {
                 if (creep.transfer(targets[0], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
                     creep.moveTo(targets[0]);
+                }
+            }else if(secondTargets.length > 0){
+                if(creep.transfer(secondTargets[0], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE){
+                    creep.moveTo(secondTargets[0])
                 }
             }else{
                 this.goBuilding(creep);
@@ -34,6 +44,10 @@ var roleHarvester = {
                 creep.moveTo(sources[0]);
             }
         }
+    },
+    //for multiple towers control - fueling towers
+    goFueling: function(creep){
+        
     },
     //help builder building when spawn fully energy
     goBuilding: function(creep){
